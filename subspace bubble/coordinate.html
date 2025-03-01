@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Subspace bubble calculator</title>
+	<style>
+		* {
+			font: 15px Arial;
+		}
+
+		button {
+			background-color: #FA8072;
+			border-radius: 12px;
+		}
+
+		input {
+			border-width: medium;
+			background-color: #00FFFF;
+			border-radius: 15px;
+		}
+
+		input:disabled {
+			border-color: red;
+			background-color: #00FFFF;
+		}
+
+		button:disabled {
+			border-color: red;
+			background-color: #00FFFF;
+		}
+	</style>
+	<script src="coordinate.js">
+	</script>
+
+</head>
+
+<body>
+	<form name="coor">
+		<label for="x">X</label>
+		<input type="number" class="x" name="x" /><br>
+		<label for="z">Z</label>
+		<input type="number" class="z" name="z"><br>
+	</form>
+
+	<button onclick="mycoor()" id="btn">Get Coordinates</button>
+
+	<div id="result"></div>
+</body>
+
+</html>

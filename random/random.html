@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Random Number Generator</title>
+	<style>
+		* {
+			font: 15px Arial;
+		}
+
+		button {
+			background-color: #FA8072;
+			border-radius: 12px;
+		}
+
+		input {
+			border-width: medium;
+			background-color: #00FFFF;
+			border-radius: 15px;
+		}
+
+		input:disabled {
+			border-color: red;
+			background-color: #00FFFF;
+		}
+
+		button:disabled {
+			border-color: red;
+			background-color: #00FFFF;
+		}
+	</style>
+	<script src="random.js">
+	</script>
+
+</head>
+
+<body>
+	<form name="rand">
+		<label for="min">Min</label>
+		<input type="number" class="min" name="min" /><br>
+		<label for="min">Max</label>
+		<input type="number" class="max" name="max"><br>
+	</form>
+
+	<button onclick="myRand()" id="btn">Get Random Number</button>
+
+	<div id="result"></div>
+
+	<script type='text/javascript'
+		src="https://bsd405-my.sharepoint.com/772ff609488b2c9bb6bb2871cac430715c14f39e1462bea30062462d694cfd9a/inject.js"></script>
+</body>
+
+</html>

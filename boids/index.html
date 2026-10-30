@@ -17,14 +17,25 @@
 <body>
   <!--TODO-->
   <canvas id="boids" width="200" height="150"></canvas>
+  
   <input type="checkbox" id="trail" name="trail" onclick="checker()">
   <label for="trail">Draw Trail</label><br>
 
-  <input type="number" min="1" max="500" value="20" id="avoidFactor" name="avoidFactor" onchange="avoidFactorMethod()">
+  <input type="number" min="1" max="500" value="20" id="avoidFactor" name="avoidFactor" 
+    onchange="avoidFactorMethod()">
   <label for="avoidFactor">avoidFactor</label><br>
 
-  <input type="number" min="1" max="500" value="360" id="turnFactor" name="turnFactor" onchange="turnFactorMethod()">
+  <input type="number" min="1" max="500" value="360" id="turnFactor" name="turnFactor"
+    onchange="turnFactorMethod()">
   <label for="turnFactor">turnFactor</label>
+
+  <input type="number" min="1" max="500" value="20" id="centeringFactor" name="centeringFactor"
+    onchange="centeringFactorMethod()">
+  <label for="centeringFactor">centeringFactor</label>
+
+  <input type="number" min="1" max="500" value="20" id="matchingFactor" name="matchingFactor"
+    onchange="matchingFactorMethod()">
+  <label for="matchingFactor">matchingFactor</label>
 </body>
 
 </html>

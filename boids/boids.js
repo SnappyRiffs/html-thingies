@@ -12,17 +12,17 @@ var boids = [];
 // TODO: Find all editable variables and set sliders (goto ./index.html)
 // Keep within bounds:
 const margin = 200;
-const turnFactor = 20;
+var turnFactor = 20;
 
 // fly towards center
-const centeringFactor = 100.0; // adjust velocity by this %
+var centeringFactor = 100.0;
 
 // avoid others
-const minDistance = 0; // The distance to stay away from other boids
+const minDistance = 10; // The distance to stay away from other boids
 var avoidFactor = 500; // Adjust velocity by this %
 
 // match velocity
-const matchingFactor = 9999; // Adjust by this % of average velocity
+var matchingFactor = 30; // Adjust by this % of average velocity
 
 // limit speed
 const speedLimit = 1000;
@@ -54,6 +54,14 @@ function turnFactorMethod() {
   turnFactor = document.getElementById("turnFactor").value;
 }
 
+function centeringFactorMethod() {
+  centeringFactor = document.getElementById("centeringFactor").value;
+}
+
+function matchingFactorMethod() {
+  matchingFactor = document.getElementById("matchingFactor").value;
+}
+
 // main methods
 function validate() {
   if (turnFactor <= 0) {
@@ -68,13 +76,11 @@ function validate() {
     alert("a and b must be > 0, not a: " + a + " b: " + b);
     allowRun = false;
   }
-
-
 }
 
 function initBoids() {
   for (var i = 0; i < numBoids; i += 1) {
-    boids[boids.length] = {
+    boids[i] = {
       x: Math.random() * width,
       y: Math.random() * height,
       dx: Math.random() * a - b,
@@ -105,7 +111,7 @@ function nClosestBoids(boid, n) {
 // size and width/height variables.
 function sizeCanvas() {
   const canvas = document.getElementById("boids");
-  width = window.innerWidth / 2;
+  width = window.innerWidth;
   height = window.innerHeight;
   canvas.width = width;
   canvas.height = height;
@@ -114,8 +120,6 @@ function sizeCanvas() {
 // Constrain a boid to within the window. If it gets too close to an edge,
 // nudge it back in and reverse its direction.
 function keepWithinBounds(boid) {
-
-
   if (boid.x < margin) {
     boid.dx += turnFactor;
   }
@@ -133,8 +137,6 @@ function keepWithinBounds(boid) {
 // Find the center of mass of the other boids and adjust velocity slightly to
 // point towards the center of mass.
 function flyTowardsCenter(boid) {
-
-
   let centerX = 0;
   let centerY = 0;
   let numNeighbors = 0;
@@ -176,8 +178,6 @@ function avoidOthers(boid) {
 // Find the average velocity (speed and direction) of the other boids and
 // adjust velocity slightly to match.
 function matchVelocity(boid) {
-
-
   let avgDX = 0;
   let avgDY = 0;
   let numNeighbors = 0;
@@ -202,8 +202,6 @@ function matchVelocity(boid) {
 // Speed will naturally vary in flocking behavior, but real animals can't go
 // arbitrarily fast.
 function limitSpeed(boid) {
-
-
   const speed = Math.sqrt(boid.dx * boid.dx + boid.dy * boid.dy);
   if (speed > speedLimit) {
     boid.dx = (boid.dx / speed) * speedLimit;
@@ -211,12 +209,12 @@ function limitSpeed(boid) {
   }
 }
 
-function drawBoid(ctx, boid) {
+function drawBoid(ctx, boid, lineWidth, strokeStyle) {
   const angle = Math.atan2(boid.dy, boid.dx);
   ctx.translate(boid.x, boid.y);
   ctx.rotate(angle);
   ctx.translate(-boid.x, -boid.y);
-  ctx.fillStyle = color;
+  ctx.fillStyle = strokeStyle;
   ctx.beginPath();
   ctx.moveTo(boid.x, boid.y);
   ctx.lineTo(boid.x - x, boid.y + y);
@@ -225,9 +223,9 @@ function drawBoid(ctx, boid) {
   ctx.fill();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-  if (DRAW_TRAIL) {
-    ctx.lineWidth = lineParam;
-    ctx.strokeStyle = color;
+  if (DRAW_TRAIL && boid.history.length > 0) {
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = strokeStyle;
     ctx.beginPath();
     ctx.moveTo(boid.history[0][0], boid.history[0][1]);
     for (const point of boid.history) {
@@ -259,7 +257,7 @@ function animationLoop() {
   const ctx = document.getElementById("boids").getContext("2d");
   ctx.clearRect(0, 0, width, height);
   for (let boid of boids) {
-    drawBoid(ctx, boid);
+    drawBoid(ctx, boid, lineParam, color);
   }
 
   // Schedule the next frame
